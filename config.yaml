@@ -13,7 +13,7 @@ feeds:
   - name: nikki
     url: https://github.com/nikkinikki-org/OpenWrt-nikki
     branch: main
-  - name: sqm-nss
+  - name: sqm_nss
     url: https://github.com/rickkdotnet/sqm-scripts-nss
     branch: main
 
