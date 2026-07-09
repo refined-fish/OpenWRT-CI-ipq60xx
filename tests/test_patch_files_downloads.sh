@@ -48,6 +48,16 @@ JSON
 fi
 
 case "$url" in
+  *vernesong/mihomo*)
+    cat > "$output" <<'JSON'
+{"assets":[{"name":"mihomo-linux-arm64-alpha-smart-new.gz","browser_download_url":"https://example.test/mihomo.gz"}]}
+JSON
+    ;;
+  *EasyTier/EasyTier*)
+    cat > "$output" <<'JSON'
+{"tag_name":"v9.9.9","assets":[{"name":"easytier-linux-aarch64-v9.9.9.zip","browser_download_url":"https://example.test/easytier.zip"}]}
+JSON
+    ;;
   *mihomo.gz)
     printf 'mihomo-bin\n' | gzip -c > "$output"
     ;;
