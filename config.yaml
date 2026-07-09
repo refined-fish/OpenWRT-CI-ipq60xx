@@ -1,0 +1,42 @@
+source:
+  repo: "https://github.com/VIKINGYFY/immortalwrt"
+  branch: "main"
+
+target:
+  arch: "qualcommax"
+  subtarget: "ipq60xx"
+  device: "multiple devices"
+  devices:
+    - "zn_m2"
+
+feeds:
+  - name: nikki
+    url: https://github.com/nikkinikki-org/OpenWrt-nikki
+    branch: main
+  - name: sqm-nss
+    url: https://github.com/rickkdotnet/sqm-scripts-nss
+    branch: main
+
+extra_packages:
+  - name: easytier
+    url: https://github.com/EasyTier/luci-app-easytier
+    dir: package/luci-app-easytier
+
+build:
+  language: zh-cn
+  use_ccache: true
+
+image:
+  filesystems:
+    - squashfs
+  initramfs: false
+  recovery: false
+  rootfs_size_mb: "512"
+
+output:
+  artifact: true # 是否上传构建产物
+  webdav: false # 是否上传到webdav服务器
+
+upload:
+  webdav_path: /openwrt # webdav上传路径
+  webdav_mode: direct # bundle打包后上传，direct直接上传文件

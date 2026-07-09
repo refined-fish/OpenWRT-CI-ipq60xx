@@ -1,0 +1,8 @@
+openwrt/
+firmware-output/
+files-variants/
+files-patches/
+extra-packages.tsv
+openwrt-firmware-*.tar.zst
+*.zip
+.DS_Store
