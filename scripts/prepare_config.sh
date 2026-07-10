@@ -119,6 +119,15 @@ sed -n '1,180p' "$TARGET_CONFIG"
 
 rm -f scripts/config/conf scripts/config/mconf scripts/config/nconf || true
 if ! openwrt_make defconfig; then
+  if [ -f tmp/.config-target.in ]; then
+    first_bad_line="$(awk 'index($0, "|") { print NR; exit }' tmp/.config-target.in)"
+    if [ -n "$first_bad_line" ]; then
+      start_line="$((first_bad_line > 5 ? first_bad_line - 5 : 1))"
+      end_line="$((first_bad_line + 10))"
+      echo "First invalid target config context (${start_line}-${end_line}):"
+      nl -ba tmp/.config-target.in | sed -n "${start_line},${end_line}p"
+    fi
+  fi
   echo "make defconfig failed; retrying with single-thread verbose output"
   openwrt_make -j1 V=s defconfig
 fi
