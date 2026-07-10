@@ -32,7 +32,7 @@ image:
     - squashfs
   initramfs: false
   recovery: false
-  rootfs_size_mb: "512"
+  #rootfs_size_mb: "512"
 
 output:
   artifact: true # 是否上传构建产物
