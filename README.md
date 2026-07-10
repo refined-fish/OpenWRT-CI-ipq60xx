@@ -38,9 +38,28 @@ target:
   device: "multiple devices"
   devices:
     - "zn_m2"
+    - "link_nn6000_v2"
 ```
 
 `zn_m2` 对应 OpenWrt 配置符号 `CONFIG_TARGET_DEVICE_qualcommax_ipq60xx_DEVICE_zn_m2`。
+
+### 查询准确的设备名称
+
+`devices` 填写的是源码中的设备 profile，不是路由器的商品名。名称必须以 `config.yaml` 中 `source.repo` 和 `source.branch` 指向的源码版本为准：
+
+1. 打开源码中的 `target/linux/<arch>/image/<subtarget>.mk`。当前配置对应 [VIKINGYFY/immortalwrt 的 ipq60xx.mk](https://github.com/VIKINGYFY/immortalwrt/blob/main/target/linux/qualcommax/image/ipq60xx.mk)。
+2. 在文件中搜索设备型号，通过同一设备定义中的 `DEVICE_VENDOR`、`DEVICE_MODEL` 和 `DEVICE_VARIANT` 核对厂商、型号及硬件版本。
+3. 找到该设备对应的 `TARGET_DEVICES += <profile>`，以 `<profile>` 为准确名称。
+4. 填入 `devices` 时，将 `<profile>` 中的连字符 `-` 替换为下划线 `_`。
+
+例如 NN6000 v2 的源码定义是 `TARGET_DEVICES += link_nn6000-v2`，因此应填写：
+
+```yaml
+devices:
+  - "link_nn6000_v2"
+```
+
+工作流会据此生成 `CONFIG_TARGET_DEVICE_qualcommax_ipq60xx_DEVICE_link_nn6000_v2`。如果修改了 `source.repo`、`source.branch`、`target.arch` 或 `target.subtarget`，必须到对应源码和版本中重新查询，不能直接沿用这里的示例。
 
 多设备编译写法：
 
@@ -51,6 +70,7 @@ target:
   device: "multiple devices"
   devices:
     - "zn_m2"
+    - "link_nn6000_v2"
 ```
 
 额外 feeds 会追加到 `feeds.conf.default` 后执行 `./scripts/feeds update -a` 和 `./scripts/feeds install -a`：
