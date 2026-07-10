@@ -24,6 +24,10 @@ EOF
 cat > "$openwrt_dir/scripts/feeds" <<'SH'
 #!/usr/bin/env bash
 set -euo pipefail
+if [ -n "${TARGET_DEVICES+x}" ]; then
+  echo "TARGET_DEVICES leaked into OpenWrt feeds: $TARGET_DEVICES" >&2
+  exit 24
+fi
 if grep -q '^src-git sqm-nss ' feeds.conf.default; then
   echo "invalid feed name was not sanitized" >&2
   exit 25
@@ -32,4 +36,5 @@ grep -q '^src-git sqm_nss https://github.com/rickkdotnet/sqm-scripts-nss;main$' 
 SH
 chmod +x "$openwrt_dir/scripts/feeds"
 
-OPENWRT_DIR="$openwrt_dir" WORKSPACE_DIR="$workspace_dir" bash "$workspace_dir/scripts/prepare_feeds.sh"
+OPENWRT_DIR="$openwrt_dir" WORKSPACE_DIR="$workspace_dir" TARGET_DEVICES='zn_m2|link_nn6000_v2' \
+  bash "$workspace_dir/scripts/prepare_feeds.sh"
