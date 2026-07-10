@@ -8,7 +8,7 @@ target:
   device: "multiple devices"
   devices:
     - "zn_m2"
-    #- "link_nn6000_v2"
+    - "link_nn6000_v2"
 
 feeds:
   - name: nikki
