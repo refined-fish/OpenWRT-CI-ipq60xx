@@ -128,9 +128,7 @@ for device_symbol in ${TARGET_DEVICE_SYMBOLS:-}; do
   config_symbol="$(target_device_config_symbol "$device_symbol")"
   if ! grep -qx "${config_symbol}=y" "$TARGET_CONFIG"; then
     echo "Requested device was removed by make defconfig: $config_symbol" >&2
-    grep -i 'nn6000' tmp/.targetinfo tmp/.config-target.in 2>/dev/null || true
-    sed -n '/define Device\/link_nn6000/,/TARGET_DEVICES += link_nn6000-v2/p' \
-      target/linux/qualcommax/image/ipq60xx.mk 2>/dev/null || true
+    grep -F "$device_symbol" tmp/.targetinfo tmp/.config-target.in 2>/dev/null || true
     missing_device=true
   fi
 done

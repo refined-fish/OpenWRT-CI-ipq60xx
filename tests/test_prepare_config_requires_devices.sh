@@ -9,7 +9,7 @@ mkdir -p "$tmp_dir/bin" "$tmp_dir/workspace" "$tmp_dir/openwrt/scripts/config" "
 printf 'Target-Profile: DEVICE_link_nn6000-v2\n' > "$tmp_dir/openwrt/tmp/.targetinfo"
 cat > "$tmp_dir/bin/make" <<'EOF'
 #!/usr/bin/env bash
-sed -i '/DEVICE_link_nn6000_v2=y/d' .config
+sed -i '/DEVICE_link_nn6000-v2=y/d' .config
 EOF
 chmod +x "$tmp_dir/bin/make"
 
@@ -19,7 +19,7 @@ if OPENWRT_DIR="$tmp_dir/openwrt" \
   TARGET_ARCH=qualcommax \
   TARGET_SUBTARGET_SYMBOL=ipq60xx \
   TARGET_DEVICE_SYMBOL=multiple \
-  TARGET_DEVICE_SYMBOLS='zn_m2 link_nn6000_v2' \
+  TARGET_DEVICE_SYMBOLS='zn_m2 link_nn6000-v2' \
   TARGET_MULTI_PROFILE=true \
   USE_CCACHE=false \
   PATH="$tmp_dir/bin:$PATH" \
@@ -28,5 +28,5 @@ if OPENWRT_DIR="$tmp_dir/openwrt" \
   exit 1
 fi
 
-grep -q 'CONFIG_TARGET_DEVICE_qualcommax_ipq60xx_DEVICE_link_nn6000_v2' "$log_file"
+grep -q 'CONFIG_TARGET_DEVICE_qualcommax_ipq60xx_DEVICE_link_nn6000-v2' "$log_file"
 grep -q 'Target-Profile: DEVICE_link_nn6000-v2' "$log_file"

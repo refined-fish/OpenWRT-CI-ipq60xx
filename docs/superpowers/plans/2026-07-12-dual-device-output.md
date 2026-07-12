@@ -37,11 +37,11 @@
 
 **Files:**
 - Modify only if evidence requires: `scripts/prepare_source.sh`
-- Create only if evidence requires: `tests/test_prepare_source_nn6000_profile.sh`
+- Modify: `scripts/parse_config.py`
 
 - [ ] 运行项目指南中的全部本地测试、`bash -n scripts/*.sh tests/*.sh` 和 `git diff --check`。
 - [ ] 提交并推送 Tasks 1-2，触发 `gh workflow run ci.yml -f clean_cache=true`。
-- [ ] 从失败日志核对 `.config-target.in` 是否存在 `link_nn6000_v2`，并检查上游 `ipq60xx.mk` 对应设备定义。
-- [ ] 若上游 profile 元数据缺失，先写复现该上游定义的失败测试，再在 `prepare_source.sh` 做仅匹配该已知定义的补丁；若元数据存在，则根据日志暴露的实际边界修复，不改动其他设备。
+- [ ] 从失败日志核对 `.config-target.in` 中的真实设备 symbol，并与解析器输出逐字比较。
+- [ ] 保留上游 profile 的连字符和下划线，只规范化配置值中的空格。
 - [ ] 再次推送并触发干净构建，下载 artifact，核对两台设备、`.ubi`、manifest 和最终 `build.config`。
 - [ ] 按最终行为同步 `README.md`，再运行全部本地检查。

@@ -36,5 +36,5 @@ grep -q '^src-git sqm_nss https://github.com/rickkdotnet/sqm-scripts-nss;main$' 
 SH
 chmod +x "$openwrt_dir/scripts/feeds"
 
-OPENWRT_DIR="$openwrt_dir" WORKSPACE_DIR="$workspace_dir" TARGET_DEVICES='zn_m2|link_nn6000_v2' \
+OPENWRT_DIR="$openwrt_dir" WORKSPACE_DIR="$workspace_dir" TARGET_DEVICES='zn_m2|link_nn6000-v2' \
   bash "$workspace_dir/scripts/prepare_feeds.sh"

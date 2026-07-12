@@ -49,7 +49,7 @@ chmod +x "$workspace_dir/scripts/"*.sh
 OPENWRT_DIR="$openwrt_dir" \
 WORKSPACE_DIR="$workspace_dir" \
 TARGET_ARCH=qualcommax \
-TARGET_DEVICES='zn_m2|link_nn6000_v2' \
+TARGET_DEVICES='zn_m2|link_nn6000-v2' \
 USE_CCACHE=false \
 PATH="$tmp_dir/bin:$PATH" \
   bash "$repo_root/scripts/build_openwrt.sh"

@@ -23,7 +23,7 @@ WORKSPACE_DIR="$tmp_dir/workspace" \
 TARGET_ARCH=qualcommax \
 TARGET_SUBTARGET_SYMBOL=ipq60xx \
 TARGET_DEVICE_SYMBOL=multiple \
-TARGET_DEVICES='zn_m2|link_nn6000_v2' \
+TARGET_DEVICES='zn_m2|link_nn6000-v2' \
 USE_CCACHE=false \
 PATH="$tmp_dir/bin:$PATH" \
   bash "$repo_root/scripts/prepare_config.sh"
