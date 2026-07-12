@@ -6,6 +6,7 @@ tmp_dir="$(mktemp -d)"
 trap 'rm -rf "$tmp_dir"' EXIT
 
 mkdir -p "$tmp_dir/bin" "$tmp_dir/workspace" "$tmp_dir/openwrt/scripts/config" "$tmp_dir/openwrt/tmp"
+printf 'Target-Profile: DEVICE_link_nn6000-v2\n' > "$tmp_dir/openwrt/tmp/.targetinfo"
 cat > "$tmp_dir/bin/make" <<'EOF'
 #!/usr/bin/env bash
 sed -i '/DEVICE_link_nn6000_v2=y/d' .config
@@ -28,3 +29,4 @@ if OPENWRT_DIR="$tmp_dir/openwrt" \
 fi
 
 grep -q 'CONFIG_TARGET_DEVICE_qualcommax_ipq60xx_DEVICE_link_nn6000_v2' "$log_file"
+grep -q 'Target-Profile: DEVICE_link_nn6000-v2' "$log_file"
