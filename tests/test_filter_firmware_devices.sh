@@ -38,3 +38,18 @@ if OPENWRT_DIR="$openwrt_dir" \
   exit 1
 fi
 grep -q 'Missing release firmware for requested device: link_nn6000-v2' "$tmp_dir/missing.log"
+
+rm -rf "$openwrt_dir/bin/targets" "$workspace_dir/firmware-output"
+mkdir -p "$targets_dir"
+touch \
+  "$targets_dir/immortalwrt-qualcommax-ipq60xx-foo-squashfs-sysupgrade.bin" \
+  "$targets_dir/immortalwrt-qualcommax-ipq60xx-foo-v2-squashfs-sysupgrade.bin"
+
+OPENWRT_DIR="$openwrt_dir" \
+WORKSPACE_DIR="$workspace_dir" \
+TARGET_DEVICE_SYMBOLS='foo foo-v2' \
+FILES_VARIANT_NAME=default \
+  bash "$repo_root/scripts/filter_firmware.sh" >/dev/null
+
+grep -q $'^default\tfoo\t' "$workspace_dir/firmware-output/firmware-list.txt"
+grep -q $'^default\tfoo-v2\t' "$workspace_dir/firmware-output/firmware-list.txt"

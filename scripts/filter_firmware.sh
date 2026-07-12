@@ -76,11 +76,13 @@ while IFS= read -r -d '' file; do
     firmware_device="${TARGET_DEVICE_SYMBOL:-unknown}"
     if [ "${#requested_devices[@]}" -gt 0 ]; then
       firmware_device=""
+      matched_length=0
       normalized_name="$(normalize_name "$name")"
       for device_symbol in "${requested_devices[@]}"; do
-        if [[ "$normalized_name" == *"$(normalize_name "$device_symbol")"* ]]; then
+        normalized_device="$(normalize_name "$device_symbol")"
+        if [[ "$normalized_name" == *"$normalized_device"* ]] && [ "${#normalized_device}" -gt "$matched_length" ]; then
           firmware_device="$device_symbol"
-          break
+          matched_length="${#normalized_device}"
         fi
       done
       if [ -z "$firmware_device" ]; then
