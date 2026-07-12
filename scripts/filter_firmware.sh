@@ -74,7 +74,7 @@ while IFS= read -r -d '' file; do
   fi
   if is_firmware "$name"; then
     firmware_device="${TARGET_DEVICE_SYMBOL:-unknown}"
-    if [ "${#requested_devices[@]}" -gt 0 ]; then
+    if [ "${TARGET_MULTI_PROFILE:-false}" = "true" ]; then
       firmware_device=""
       matched_length=0
       normalized_name="$(normalize_name "$name")"
@@ -89,6 +89,8 @@ while IFS= read -r -d '' file; do
         echo "Skip firmware for unrequested device: $name"
         continue
       fi
+    elif [ "${#requested_devices[@]}" -gt 0 ]; then
+      firmware_device="${requested_devices[0]}"
     fi
     output_name="$name"
     if [ -n "$variant_prefix" ]; then
