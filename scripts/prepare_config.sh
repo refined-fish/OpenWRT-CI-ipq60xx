@@ -122,3 +122,14 @@ if ! openwrt_make defconfig; then
   echo "make defconfig failed; retrying with single-thread verbose output"
   openwrt_make -j1 V=s defconfig
 fi
+
+missing_device=false
+for device_symbol in ${TARGET_DEVICE_SYMBOLS:-}; do
+  config_symbol="$(target_device_config_symbol "$device_symbol")"
+  if ! grep -qx "${config_symbol}=y" "$TARGET_CONFIG"; then
+    echo "Requested device was removed by make defconfig: $config_symbol" >&2
+    grep -F "$device_symbol" tmp/.config-target.in 2>/dev/null || true
+    missing_device=true
+  fi
+done
+[ "$missing_device" = false ] || exit 1
