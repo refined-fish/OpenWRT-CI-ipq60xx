@@ -17,6 +17,9 @@ feeds:
   - name: sqm_nss
     url: https://github.com/rickkdotnet/sqm-scripts-nss
     branch: main
+  - name: ruijie-auth
+    url: https://github.com/refined-fish/luci-app-ruijie-auth
+    branch: main
 
 extra_packages:
   - name: easytier
