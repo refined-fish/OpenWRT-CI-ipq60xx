@@ -23,6 +23,7 @@ luci-app-wechatpush
 luci-app-wifihistory
 luci-app-wifischedule
 #luci-app-snmpd
+luci-app-ruijie-auth
 
 # 软件包
 nano
